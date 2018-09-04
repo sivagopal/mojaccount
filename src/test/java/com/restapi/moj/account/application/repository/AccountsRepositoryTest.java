@@ -37,4 +37,21 @@ public class AccountsRepositoryTest {
         List<Account> accounts = accountRepository.findAll();
         assertThat(accounts.size()).isEqualTo(2);
     }
+
+    @Test
+    public void whenDeleteAccountById_thenReflectNumberOfRecordsReducedByOneInList() {
+        Account account = new Account("firstName", "secondName", "1234");
+        accountRepository.save(account);
+        account = new Account("firstName2", "secondName2", "12345");
+        accountRepository.save(account);
+        List<Account> accounts = accountRepository.findAll();
+        assertThat(accounts.size()).isEqualTo(2);
+        accountRepository.deleteById(1L);
+        accounts = accountRepository.findAll();
+        assertThat(accounts.size()).isEqualTo(1);
+        accountRepository.deleteById(2L);
+        accounts = accountRepository.findAll();
+        assertThat(accounts.size()).isEqualTo(0);
+
+    }
 }
