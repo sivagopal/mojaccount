@@ -16,7 +16,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -34,17 +36,28 @@ public class AccountControllerTest {
     private AccountService accountService;
 
     @Test
-    public void givenSavedAccounts_whenGetAccounts_theReturnAccountsAsJsonArray() throws Exception {
+    public void givenAccount_whenSaveAccount_theReturnAccountSuccessMessage() throws Exception {
         Account account = new Account("test", "test second", "123");
         Gson gson = new Gson();
         AccountMessage accountMessage = new AccountMessage();
         accountMessage.setMessage("Account successfully created");
         String jsonAccount = gson.toJson(account);
+        given(accountService.saveAccount(account)).willReturn(accountMessage);
         accountMockMvc.perform(post("/rest/account/json")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonAccount))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message", is(accountMessage.getMessage())));
 
+    }
+
+    @Test
+    public void givenSavedAccounts_whenGetAccounts_theReturnAccountsAsJsonArray() throws Exception {
+        Account account = new Account("test", "test second", "123");
+        given(accountService.getAccountById(1L)).willReturn(account);
+        accountMockMvc.perform(get("/rest/account/json", 1L)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.firstName", is(account.getFirstName())));
     }
 }
