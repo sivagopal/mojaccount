@@ -94,7 +94,7 @@ public class AccountControllerTest {
     public void givenInvalidAccount_whenDeleteAccount_thenReturnErrorMessageJSON() throws Exception {
         Account account = new Account("test", "test second", "123");
         AccountMessage accountMessage = new AccountMessage();
-        accountMessage.setMessage("Account successfully created");
+        accountMessage.setMessage("Unable to delete account");
         given(accountService.deleteAccountById(1L)).willThrow(new RuntimeException("error"));
         accountMockMvc.perform(delete("/rest/account/json/1")
                 .contentType(MediaType.APPLICATION_JSON))
