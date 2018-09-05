@@ -1,10 +1,13 @@
 package com.restapi.moj.account.application.data;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "account")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

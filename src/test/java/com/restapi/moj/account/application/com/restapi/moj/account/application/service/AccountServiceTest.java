@@ -42,7 +42,7 @@ public class AccountServiceTest {
     }
 
     @Test
-    public void testWhenFindAll_thenListOfAccountsShouldBeAvailable() {
+    public void testGetAllAccounts_thenListOfAccountsShouldBeAvailable() {
         Account account = new Account("test", "test second", "123");
         accountService.saveAccount(account);
         account = new Account("test2", "test second2", "12345");
@@ -52,12 +52,43 @@ public class AccountServiceTest {
     }
 
     @Test
-    public void testFindWhenValidId_thenAccountShouldBeAvailable() {
+    public void testGetAllAccountsWhenNoData_thenEmptyListOfAccountsShouldBeAvailable() {
+
+        List<Account> accounts = accountService.getAllAccounts();
+        assertThat(accounts.size()).isEqualTo(0);
+        assertThat(accounts.isEmpty()).isEqualTo(true);
+    }
+
+    @Test
+    public void testGetAccountByIdWhenValidId_thenAccountShouldBeAvailable() {
         Account account = new Account("test", "test second", "123");
         accountService.saveAccount(account);
         Account found = accountService.getAccountById(1L);
         assertThat(found.getFirstName()).isEqualTo(account.getFirstName());
         assertThat(found.getSecondName()).isEqualTo(account.getSecondName());
         assertThat(found.getAccountNumber()).isEqualTo(account.getAccountNumber());
+    }
+
+    @Test
+    public void testGetAccountByIdWhenNodata_thenAccountShouldNotBeAvailable() {
+
+        Account found = accountService.getAccountById(1L);
+        assertThat(found.getErrorMessage()).isEqualTo("No record found");
+
+    }
+    @Test
+    public void testWhenDeleteAccount_thenListOfAccountsShouldBeReducedByOne() {
+        Account account = new Account("test", "test second", "123");
+        accountService.saveAccount(account);
+        account = new Account("test2", "test second2", "12345");
+        accountService.saveAccount(account);
+        List<Account> accounts = accountService.getAllAccounts();
+        assertThat(accounts.size()).isEqualTo(2);
+        accountService.deleteAccountById(1L);
+        accounts = accountService.getAllAccounts();
+        assertThat(accounts.size()).isEqualTo(1);
+        accountService.deleteAccountById(2L);
+        accounts = accountService.getAllAccounts();
+        assertThat(accounts.size()).isEqualTo(0);
     }
 }

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -19,11 +21,26 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account getAccountById(long id) {
-        return accountRepository.findById(id).get();
+        Optional<Account> account = accountRepository.findById(id);
+        try {
+            return account.get();
+        }
+        catch(NoSuchElementException e){
+            Account accountMessage = new Account();
+            accountMessage.setErrorMessage("No record found");
+            return accountMessage;
+        }
+
+
     }
 
     @Override
     public List<Account> getAllAccounts() {
         return accountRepository.findAll();
+    }
+
+    @Override
+    public void deleteAccountById(long id) {
+        accountRepository.deleteById(id);
     }
 }
