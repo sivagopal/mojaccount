@@ -1,7 +1,8 @@
-package com.restapi.moj.account.application.com.restapi.moj.account.application.service;
+package com.restapi.moj.account.application.service;
 
 import com.restapi.moj.account.application.data.Account;
 import com.restapi.moj.account.application.repository.AccountRepository;
+import com.restapi.moj.account.application.response.AccountMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,16 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
 
     @Override
-    public void saveAccount(Account account) {
-        accountRepository.save(account);
+    public AccountMessage saveAccount(Account account) {
+        AccountMessage accountMessage = new AccountMessage();
+        try {
+            accountRepository.save(account);
+            accountMessage.setMessage("Account successfully created");
+        }
+        catch (Exception e) {
+            accountMessage.setMessage("Unable to create account");
+        }
+        return accountMessage;
     }
 
     @Override

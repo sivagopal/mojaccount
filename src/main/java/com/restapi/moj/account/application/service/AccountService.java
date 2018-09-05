@@ -1,11 +1,12 @@
-package com.restapi.moj.account.application.com.restapi.moj.account.application.service;
+package com.restapi.moj.account.application.service;
 
 import com.restapi.moj.account.application.data.Account;
+import com.restapi.moj.account.application.response.AccountMessage;
 
 import java.util.List;
 
 public interface AccountService {
-    void saveAccount(Account account);
+    AccountMessage saveAccount(Account account);
 
     Account getAccountById(long id);
 

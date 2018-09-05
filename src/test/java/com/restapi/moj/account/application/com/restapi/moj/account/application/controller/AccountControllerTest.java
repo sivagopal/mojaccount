@@ -2,8 +2,9 @@ package com.restapi.moj.account.application.com.restapi.moj.account.application.
 
 import com.google.gson.Gson;
 import com.restapi.moj.account.application.AccountSpringBootApplication;
-import com.restapi.moj.account.application.com.restapi.moj.account.application.service.AccountService;
 import com.restapi.moj.account.application.data.Account;
+import com.restapi.moj.account.application.response.AccountMessage;
+import com.restapi.moj.account.application.service.AccountService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+
+import static org.hamcrest.core.Is.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = AccountSpringBootApplication.class)
@@ -33,11 +37,14 @@ public class AccountControllerTest {
     public void givenSavedAccounts_whenGetAccounts_theReturnAccountsAsJsonArray() throws Exception {
         Account account = new Account("test", "test second", "123");
         Gson gson = new Gson();
+        AccountMessage accountMessage = new AccountMessage();
+        accountMessage.setMessage("Account successfully created");
         String jsonAccount = gson.toJson(account);
         accountMockMvc.perform(post("/rest/account/json")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonAccount))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message", is(accountMessage.getMessage())));
 
     }
 }
