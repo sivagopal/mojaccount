@@ -49,7 +49,14 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void deleteAccountById(long id) {
-        accountRepository.deleteById(id);
+    public AccountMessage deleteAccountById(long id) {
+        AccountMessage accountMessage = new AccountMessage();
+        try {
+            accountRepository.deleteById(id);
+            accountMessage.setMessage("Account successfully deleted");
+        } catch (Exception e) {
+            accountMessage.setMessage("Unable to delete account");
+        }
+        return accountMessage;
     }
 }

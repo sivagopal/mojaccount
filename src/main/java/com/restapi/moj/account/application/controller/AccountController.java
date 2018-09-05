@@ -8,6 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.http.MediaType.*;
 
 @Controller
@@ -28,6 +30,23 @@ public class AccountController {
             Account account = new Account();
             account.setErrorMessage("Record not found");
             return account;
+        }
+
+    }
+
+    @RequestMapping(value="/rest/account/json", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    public @ResponseBody List<Account> getAccounts() {
+            return accountService.getAllAccounts();
+    }
+
+    @RequestMapping(value="/rest/account/json/{id}", method = RequestMethod.DELETE, produces = APPLICATION_JSON_VALUE)
+    public @ResponseBody AccountMessage delete(@PathVariable long id) {
+        try {
+            return accountService.deleteAccountById(id);
+        } catch(Exception e) {
+            AccountMessage accountMessage = new AccountMessage();
+            accountMessage.setMessage("Unable to delete account");
+            return accountMessage;
         }
 
     }

@@ -2,6 +2,7 @@ package com.restapi.moj.account.application.com.restapi.moj.account.application.
 
 import com.restapi.moj.account.application.data.Account;
 import com.restapi.moj.account.application.repository.AccountRepository;
+import com.restapi.moj.account.application.response.AccountMessage;
 import com.restapi.moj.account.application.service.AccountService;
 import com.restapi.moj.account.application.service.AccountServiceImpl;
 import org.junit.Before;
@@ -89,7 +90,8 @@ public class AccountServiceTest {
         accountService.deleteAccountById(1L);
         accounts = accountService.getAllAccounts();
         assertThat(accounts.size()).isEqualTo(1);
-        accountService.deleteAccountById(2L);
+        AccountMessage message = accountService.deleteAccountById(2L);
+        assertThat(message.getMessage()).isEqualTo("Account successfully deleted");
         accounts = accountService.getAllAccounts();
         assertThat(accounts.size()).isEqualTo(0);
     }
