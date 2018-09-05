@@ -6,10 +6,7 @@ import com.restapi.moj.account.application.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.MediaType.*;
 
@@ -21,5 +18,17 @@ public class AccountController {
     @RequestMapping(value="/rest/account/json", method = RequestMethod.POST, produces = APPLICATION_JSON_VALUE)
     public @ResponseBody AccountMessage saveAccount(@RequestBody Account account) {
         return accountService.saveAccount(account);
+    }
+
+    @RequestMapping(value="/rest/account/json/{id}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    public @ResponseBody Account getAccountById(@PathVariable long id) {
+        try {
+            return accountService.getAccountById(id);
+        } catch(Exception e) {
+            Account account = new Account();
+            account.setErrorMessage("Record not found");
+            return account;
+        }
+
     }
 }
