@@ -79,8 +79,9 @@ public class AccountServiceTest {
         assertThat(found.getErrorMessage()).isEqualTo("No record found");
 
     }
+
     @Test
-    public void testWhenDeleteAccount_thenListOfAccountsShouldBeReducedByOne() {
+    public void testDeleteAccountWhenRecordDeleted_thenListOfAccountsShouldBeReducedByOne() {
         Account account = new Account("test", "test second", "123");
         accountService.saveAccount(account);
         account = new Account("test2", "test second2", "12345");
@@ -94,5 +95,13 @@ public class AccountServiceTest {
         assertThat(message.getMessage()).isEqualTo("Account successfully deleted");
         accounts = accountService.getAllAccounts();
         assertThat(accounts.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void testDeleteAccountWhenNoRecord_thenThrowNoRecordException() {
+        AccountMessage message  = accountService.deleteAccountById(1L);
+
+        assertThat(message.getMessage()).isEqualTo("Unable to delete account");
+
     }
 }

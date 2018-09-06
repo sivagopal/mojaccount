@@ -6,6 +6,7 @@ import com.restapi.moj.account.application.response.AccountMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -16,6 +17,7 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
 
     @Override
+    @Transactional
     public AccountMessage saveAccount(Account account) {
         AccountMessage accountMessage = new AccountMessage();
         try {
@@ -49,6 +51,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public AccountMessage deleteAccountById(long id) {
         AccountMessage accountMessage = new AccountMessage();
         try {

@@ -52,6 +52,5 @@ public class AccountsRepositoryTest {
         accountRepository.deleteById(2L);
         accounts = accountRepository.findAll();
         assertThat(accounts.size()).isEqualTo(0);
-
     }
 }
