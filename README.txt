@@ -14,85 +14,13 @@ Run AccountSpringBootApplication
 
 Test the application
 
-Save Account:
+Documentation is created in swagger
 
-method type: post
+http://localhost:8080/swagger-ui.html
 
-url :: http://localhost:8080/rest/Account/json
+PAAS environment:
 
-body::
-
-{
-	"firstName":"Siva",
-	"secondName": "Gopal",
-	"accountNumber": "12345"
-}
-
-Output:
-
-{
-    "message": "Account successfully created"
-}
+The application is deployed in OpenShift Paas environment URL as below:
 
 
-body::
-
-{
-	"firstName":"Siva2",
-	"secondName": "Gopal2",
-	"accountNumber": "123456"
-}
-
-Output:
-
-{
-    "message": "Account successfully created"
-}
-
-Get all accounts:
-
-method type: GET
-
-url :: http://localhost:8080/rest/Account/json
-
-Output:
-[
-    {
-        "id": 1,
-        "firstName": "Siva",
-        "secondName": "Gopal",
-        "accountNumber": "12345"
-    },
-    {
-        "id": 2,
-        "firstName": "Siva2",
-        "secondName": "Gopal2",
-        "accountNumber": "123456"
-    }
-]
-
-Get Account by id:
-
-method type: GET
-
-url :: http://localhost:8080/rest/Account/json/1
-
-Output:
-{
-    "id": 1,
-    "firstName": "Siva",
-    "secondName": "Gopal",
-    "accountNumber": "12345"
-}
-
-Delete Account:
-
-method type: DELETE
-
-url :: http://localhost:8080/rest/Account/json/1
-
-Output:
-{
-    "message": "Account successfully deleted"
-}
 

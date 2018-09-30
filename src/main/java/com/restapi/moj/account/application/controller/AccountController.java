@@ -25,7 +25,7 @@ public class AccountController {
     private AccountService accountService;
 
     @RequestMapping(value="/rest/account/json", method = RequestMethod.POST, produces = APPLICATION_JSON_VALUE)
-    @ApiOperation("Saves account information")
+    @ApiOperation("Operation to save given account information")
     @ApiResponses(value={@ApiResponse(code=200, message = "OK", response = AccountMessage.class)})
     public @ResponseBody AccountMessage saveAccount(@Valid @RequestBody JsonNode accountNode) {
         try {
@@ -47,7 +47,7 @@ public class AccountController {
     }
 
     @RequestMapping(value="/rest/account/json/{id}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-    @ApiOperation("Gets the account information for specific account id")
+    @ApiOperation("Operation to fetch the account information for a given account id")
     @ApiResponses(value={@ApiResponse(code=200, message = "OK", response = Account.class)})
     public @ResponseBody Account getAccountById(@PathVariable long id) {
         try {
@@ -62,13 +62,14 @@ public class AccountController {
     }
 
     @RequestMapping(value="/rest/account/json", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-    @ApiOperation("Gets all available accounts")
+    @ApiOperation("Operation to fetch all accounts")
     @ApiResponses(value={@ApiResponse(code=200, message = "OK", response = List.class)})
     public @ResponseBody List<Account> getAccounts() {
             return accountService.getAllAccounts();
     }
 
     @RequestMapping(value="/rest/account/json/{id}", method = RequestMethod.DELETE, produces = APPLICATION_JSON_VALUE)
+    @ApiOperation("Operation to delete account by account id")
     public @ResponseBody AccountMessage delete(@PathVariable long id) {
         try {
             return accountService.deleteAccountById(id);
