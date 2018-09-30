@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "description": "Account Controller account json",
+  "type": "object",
+  "properties": {
+    "firstName" : {
+      "type" : "string"
+    },
+    "secondName" : {
+      "type" : "string"
+    },
+    "accountNumber" : {
+      "type" : "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": ["accountNumber"]
+}

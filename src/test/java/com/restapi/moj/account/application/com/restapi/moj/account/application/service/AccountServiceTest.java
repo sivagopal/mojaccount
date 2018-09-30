@@ -104,4 +104,16 @@ public class AccountServiceTest {
         assertThat(message.getMessage()).isEqualTo("Unable to delete account");
 
     }
+
+    @Test(expected = Exception.class)
+    public void testSaveAccountWhenDuplicateAccountNumber_thenMessageUnableToCreateAccount() {
+        Account account = new Account("test", "test second", "123");
+        AccountMessage message = accountService.saveAccount(account);
+        assertThat(message.getMessage()).isEqualTo("Account successfully created");
+        List<Account> accounts = accountService.getAllAccounts();
+        assertThat(accounts.size()).isEqualTo(1);
+        account = new Account("test", "test l", "123");
+        message = accountService.saveAccount(account);
+        accounts = accountService.getAllAccounts();
+    }
 }

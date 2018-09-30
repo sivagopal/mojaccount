@@ -57,6 +57,24 @@ public class AccountControllerTest {
     }
 
     @Test
+    public void givenInvalidJson_whenSaveAccount_theReturnInvalidJSONMessage() throws Exception {
+        AccountMessage accountMessage = new AccountMessage();
+        accountMessage.setMessage("Invalid JSON");
+        String jsonAccount = "{\n" +
+                "\t\"firstName\":\"Siva\",\n" +
+                "\t\"secondName\": \"Gopal\",\n" +
+                "\t\"accountNumber\": \"12345\",\n" +
+                "\t\"test\":\"message\"\n" +
+                "}";
+        accountMockMvc.perform(post("/rest/account/json")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonAccount))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message", is(accountMessage.getMessage())));
+
+    }
+
+    @Test
     public void givenSavedAccounts_whenGetAccount_theReturnAccountsAsJsonObject() throws Exception {
         Account account = new Account("test", "test second", "123");
         given(accountService.getAccountById(1L)).willReturn(account);

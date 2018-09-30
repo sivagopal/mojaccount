@@ -14,11 +14,11 @@ Run AccountSpringBootApplication
 
 Test the application
 
-Save account:
+Save Account:
 
 method type: post
 
-url :: http://localhost:8080/rest/account/json
+url :: http://localhost:8080/rest/Account/json
 
 body::
 
@@ -53,7 +53,7 @@ Get all accounts:
 
 method type: GET
 
-url :: http://localhost:8080/rest/account/json
+url :: http://localhost:8080/rest/Account/json
 
 Output:
 [
@@ -71,11 +71,11 @@ Output:
     }
 ]
 
-Get account by id:
+Get Account by id:
 
 method type: GET
 
-url :: http://localhost:8080/rest/account/json/1
+url :: http://localhost:8080/rest/Account/json/1
 
 Output:
 {
@@ -85,11 +85,11 @@ Output:
     "accountNumber": "12345"
 }
 
-Delete account:
+Delete Account:
 
 method type: DELETE
 
-url :: http://localhost:8080/rest/account/json/1
+url :: http://localhost:8080/rest/Account/json/1
 
 Output:
 {

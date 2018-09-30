@@ -14,6 +14,8 @@ public class Account {
     private Long id;
     private String firstName;
     private String secondName;
+
+    @Column(unique = true)
     private String accountNumber;
     private String errorMessage;
 
