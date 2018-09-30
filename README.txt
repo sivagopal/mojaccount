@@ -22,5 +22,8 @@ PAAS environment:
 
 The application is deployed in OpenShift Paas environment URL as below:
 
+http://account-account.7e14.starter-us-west-2.openshiftapps.com/swagger-ui.html
 
+
+Happy testing
 
